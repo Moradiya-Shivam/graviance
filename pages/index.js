@@ -21,27 +21,23 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-pink-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
-      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-5xl gap-6">
+    <div className="w-full min-h-screen bg-pink-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-5xl overflow-hidden">
 
-        {/* Left side image */}
-        <div className="md:w-1/2 flex justify-center items-center">
+        {/* Left image */}
+        <div className="md:w-1/2 flex justify-center items-center bg-pink-100">
           <img
             src="/gargi.png"
             alt="Gargi"
-            className="w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px] xl:max-w-[500px] h-auto rounded-2xl shadow-lg object-cover"
+            className="w-full h-full max-h-[500px] object-cover rounded-2xl shadow-lg"
           />
         </div>
 
-        {/* Right side form */}
-        <div className="md:w-1/2 flex flex-col justify-between">
+        {/* Right form */}
+        <div className="md:w-1/2 flex flex-col justify-between p-6 md:p-8">
           <div>
-            <h1 className="text-3xl font-bold text-pink-600 mb-4">
-              Dear Gargi 💖
-            </h1>
-            <p className="mb-4 text-gray-600">
-              Share your heart here, I’m always listening 💌
-            </p>
+            <h1 className="text-3xl font-bold text-pink-600 mb-4">Dear Gargi 💖</h1>
+            <p className="mb-4 text-gray-600">Share your heart here, I’m always listening 💌</p>
 
             <label className="block mb-2">Your Mood 🌸</label>
             <select
