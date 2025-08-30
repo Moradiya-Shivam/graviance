@@ -27,7 +27,7 @@ export default function Home() {
         {/* Left image */}
         <div className="md:w-1/2 flex justify-center items-center bg-pink-100">
           <img
-            src="/gargi.png"
+            src="/gargi.jpeg"
             alt="Gargi"
             className="w-full h-full max-h-[500px] object-cover rounded-2xl shadow-lg"
           />
