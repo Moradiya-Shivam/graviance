@@ -1,135 +1,95 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, Heart } from "lucide-react";
-import { motion } from "framer-motion";
 
-const solutionOptions = [
-  "🗣️ Talk to her and apologize sincerely",
-  "🎁 Plan a cute surprise to make up",
-  "✍️ Write a heartfelt letter",
-  "🕊️ Give her space and time",
-  "🤝 Promise to work on it",
-  "☕ Discuss openly and calmly",
-  "💐 Do a small act of kindness"
-];
+export default function Home() {
+  const [concern, setConcern] = useState("");
+  const [action, setAction] = useState("");
+  const [mood, setMood] = useState("");
+  const [status, setStatus] = useState("");
 
-const moodOptions = [
-  "😊 Happy",
-  "😔 Sad",
-  "😤 Frustrated",
-  "🥺 Hurt",
-  "😡 Angry",
-  "😕 Confused",
-  "❤️ Loving"
-];
-
-async function sendEmail({ name, message, solution, mood, timestamp }) {
-  try {
-    await fetch("/api/send-grievance-email", {
+  const sendEmail = async () => {
+    const res = await fetch("/api/send", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, message, solution, mood, timestamp }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ concern, action, mood }),
     });
-  } catch (error) {
-    console.error("Failed to send email:", error);
-  }
-}
 
-export default function GrievanceBox() {
-  const [grievances, setGrievances] = useState([]);
-  const [message, setMessage] = useState("");
-  const [solution, setSolution] = useState(solutionOptions[0]);
-  const [mood, setMood] = useState(moodOptions[0]);
-
-  const handleSubmit = async () => {
-    if (!message) return;
-    const newEntry = {
-      id: Date.now(),
-      name: "Gargi",
-      message,
-      solution,
-      mood,
-      timestamp: new Date().toLocaleString(),
-    };
-    setGrievances([newEntry, ...grievances]);
-    setMessage("");
-    setSolution(solutionOptions[0]);
-    setMood(moodOptions[0]);
-    await sendEmail(newEntry);
+    if (res.ok) {
+      setStatus("💌 Sent successfully to your love!");
+    } else {
+      setStatus("❌ Failed to send. Try again.");
+    }
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-100 to-rose-200 flex flex-col items-center p-4">
-      <motion.h1 
-        className="text-4xl font-bold text-rose-600 mt-8 mb-2 text-center"
-        initial={{ opacity: 0, y: -20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }}>
-        <Sparkles className="inline-block w-6 h-6 mr-2 text-yellow-400 animate-pulse" />
-        Gargi's Grievance Corner
-      </motion.h1>
-      <p className="text-center text-rose-500 italic mb-4">Every little feeling matters, and I'm here to listen with all my heart 💖</p>
-      <Card className="w-full max-w-5xl bg-white shadow-xl rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-        <div className="flex justify-center">
-          <img
-            src="/gargi.png"
-            alt="Gargi smiling in garden"
-            className="rounded-xl shadow-md w-full h-auto max-w-sm border-4 border-rose-300"
-          />
+    <div className="min-h-screen flex items-center justify-center bg-pink-50 p-4">
+      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-6xl">
+        
+        {/* Left side image */}
+        <div className="flex justify-center items-center md:w-1/2 mb-6 md:mb-0">
+          <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl w-full">
+            <img
+              src="/gargi.png"
+              alt="Gargi"
+              className="w-full h-auto rounded-2xl shadow-lg object-contain"
+            />
+          </div>
         </div>
-        <CardContent className="flex flex-col gap-4">
-          <Textarea
-            placeholder="Tell me what’s on your heart 💌"
-            value={message}
-            rows={4}
-            className="border-pink-300 focus:ring-rose-400"
-            onChange={(e) => setMessage(e.target.value)}
-          />
+
+        {/* Right side form */}
+        <div className="md:w-1/2 md:pl-8 flex flex-col">
+          <h1 className="text-3xl font-bold text-pink-600 mb-4">
+            Dear Gargi 💖
+          </h1>
+          <p className="mb-4 text-gray-600">
+            Share your heart here, I’m always listening 💌
+          </p>
+
+          <label className="block mb-2">Your Mood 🌸</label>
           <select
-            className="p-2 rounded-md border border-gray-300"
+            className="w-full p-2 mb-4 border rounded-lg"
             value={mood}
             onChange={(e) => setMood(e.target.value)}
           >
-            {moodOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
-            ))}
+            <option value="">Select Mood</option>
+            <option>😊 Happy</option>
+            <option>🥺 Sad</option>
+            <option>😡 Angry</option>
+            <option>😴 Tired</option>
+            <option>❤️ Loved</option>
           </select>
-          <select
-            className="p-2 rounded-md border border-gray-300"
-            value={solution}
-            onChange={(e) => setSolution(e.target.value)}
-          >
-            {solutionOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
-            ))}
-          </select>
-          <Button className="bg-rose-500 hover:bg-rose-600 text-white" onClick={handleSubmit}>
-            Send to My ❤️
-          </Button>
-        </CardContent>
-      </Card>
 
-      <div className="mt-8 w-full max-w-xl space-y-4">
-        {grievances.map((g) => (
-          <motion.div
-            key={g.id}
-            className="bg-white p-4 shadow-lg rounded-xl border-l-4 border-rose-300"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <label className="block mb-2">Your Concern 💭</label>
+          <textarea
+            className="w-full p-2 mb-4 border rounded-lg"
+            rows="4"
+            value={concern}
+            onChange={(e) => setConcern(e.target.value)}
+          />
+
+          <label className="block mb-2">Suggested Action 🌹</label>
+          <select
+            className="w-full p-2 mb-4 border rounded-lg"
+            value={action}
+            onChange={(e) => setAction(e.target.value)}
           >
-            <p className="text-sm text-gray-500">{g.timestamp}</p>
-            <p className="font-semibold text-rose-600">{g.name} says:</p>
-            <p className="mt-1 text-gray-700 italic">"{g.message}"</p>
-            <p className="mt-2 text-sm text-gray-800">💡 Suggested Action: <span className="font-medium text-green-700">{g.solution}</span></p>
-            <p className="text-sm">🌈 Mood: <span className="text-rose-500 font-medium">{g.mood}</span></p>
-          </motion.div>
-        ))}
+            <option value="">Choose Action</option>
+            <option>💐 Bring me flowers</option>
+            <option>🍫 Buy me chocolates</option>
+            <option>📞 Call me</option>
+            <option>🤗 Hug me tight</option>
+            <option>💌 Write me a letter</option>
+          </select>
+
+          <button
+            onClick={sendEmail}
+            className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-lg mt-auto"
+          >
+            Send to My Love ❤️
+          </button>
+
+          {status && <p className="mt-4 text-pink-700">{status}</p>}
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
