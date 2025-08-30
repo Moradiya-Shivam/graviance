@@ -24,8 +24,12 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center bg-pink-50">
       <div className="bg-white p-8 rounded-2xl shadow-xl flex w-3/4">
         {/* Left side with image */}
-        <div className="w-1/2 flex items-center justify-center">
-          <img src="/gargi.png" alt="Gargi" className="rounded-xl shadow-md" />
+       <div className="flex justify-center items-center w-full p-4 bg-white">
+        <img 
+          src="/gargi.jpg" 
+          alt="Gargi" 
+          className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto rounded-2xl shadow-lg object-contain"
+        />
         </div>
 
         {/* Right side form */}
