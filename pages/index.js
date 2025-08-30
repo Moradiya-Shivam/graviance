@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-pink-50 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen w-full bg-pink-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col md:flex-row w-full max-w-5xl gap-6">
 
         {/* Left side image */}
@@ -29,13 +29,7 @@ export default function Home() {
           <img
             src="/gargi.png"
             alt="Gargi"
-            className="
-              w-full 
-              max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px] xl:max-w-[500px]
-              h-auto 
-              rounded-2xl shadow-lg object-cover
-              transition-all duration-300
-            "
+            className="w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[450px] xl:max-w-[500px] h-auto rounded-2xl shadow-lg object-cover"
           />
         </div>
 
