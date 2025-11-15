@@ -27,8 +27,8 @@ export default function Home() {
         {/* Left image */}
         <div className="md:w-1/2 flex justify-center items-center bg-pink-100">
           <img
-            src="/gargi.png"
-            alt="Gargi"
+            src="/shrutu.jpeg"
+            alt="Shrutu"
             className="w-full h-full max-h-[500px] object-cover rounded-2xl shadow-lg"
           />
         </div>
@@ -36,7 +36,7 @@ export default function Home() {
         {/* Right form */}
         <div className="md:w-1/2 flex flex-col justify-between p-6 md:p-8">
           <div>
-            <h1 className="text-3xl font-bold text-pink-600 mb-4">Dear Gargi 💖</h1>
+            <h1 className="text-3xl font-bold text-pink-600 mb-4">Dear Shrutu 💖</h1>
             <p className="mb-4 text-gray-600">Share your heart here, I’m always listening 💌</p>
 
             <label className="block mb-2">Your Mood 🌸</label>
